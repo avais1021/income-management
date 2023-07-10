@@ -142,4 +142,4 @@ function loadExpensesFromLocal() {
     renderCards(ArrObj);
     loadExpensesFromLocal();
     renderExpenses(ArrObj, '');
-})();
+})(); 
