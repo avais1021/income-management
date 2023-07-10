@@ -1,0 +1,114 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1300px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.income {
+    min-height: 100vh;
+    background: #000000d1;
+    color: rgb(223, 215, 205);
+    padding: 20px 15px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    display: none;
+}
+
+.income h1{
+    text-align: center;
+    font-family: cursive;
+    margin-bottom: 30px;
+}
+
+.income__select{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 44px;
+}
+.addBtn{
+    font-size: 15px;
+    padding: 3px 14px;
+    border-top-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    font-weight: bold;
+}
+#input_category , #input_price{
+    font-size: 17px;
+    padding: 10px 2px;
+}
+.income .items{
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.income .spendMoney{
+    font-size: 16px;
+    padding: 4px;
+}
+.item__cat__price{
+    border: 2px solid;
+    padding: 10px;
+    padding-bottom: 16px;
+    border-radius: 19px;
+}
+#category__price{
+    font-size: 20px;
+    margin-bottom: 5px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+.expenses{
+    font-size: 18px;
+  
+    margin-top: 5px;
+}
+.expenses p{
+    border-bottom-style: dashed;
+    color: rgb(223, 215, 205);
+    padding: 4px;
+}
+.spent {
+    display: inline-block;
+    position: relative;
+}
+
+.spent i {
+    position: absolute;
+    right: 3px;
+    top: 6px;
+    z-index: 100;
+    cursor: pointer;
+    color: black;
+}
+span.itemPrice {
+    border: 1px solid;
+    padding: 2px;
+    border-radius: 4px;
+}
+#remaining{
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: greenyellow;
+}
+
+@media screen and (max-width:500.9px){
+    .income__select{
+        flex-direction: column;
+    }
+    .item__cat__price {
+        width: 85%;
+    }
+}

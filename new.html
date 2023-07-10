@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="text" id="name">
+    <button id="btn">Click</button>
+    <div class="test">
+        
+    </div>
+
+<script>        
+   let btn = document.querySelector('#btn');
+   let name = document.querySelector('#name');
+   let test = document.querySelector('.test');
+
+   const saveNames = () => {
+    const myName = document.querySelectorAll('.myName');
+    let data = [];
+    myName.forEach((item) => {
+        data.push(item.innerText)
+    })
+    console.log(data);
+   
+        localStorage.setItem('namee', JSON.stringify(data))
+}
+
+   btn.addEventListener('click' , ()=>{
+    var nameval = name.value;
+    console.log(nameval)
+    userName(nameval );
+    saveNames();
+   }) 
+
+   var htmlstr = '';
+   const userName = (ynm , locName='') => {
+    htmlstr += `<h1 class="myName">${ynm}${locName}</h1>`
+   
+    test.innerHTML = htmlstr;
+   }
+
+
+   (
+    function () {
+        const nameText = JSON.parse(localStorage.getItem('namee'))
+        // console.log('nameText :' , nameText)
+
+              nameText.forEach((item) => {
+                userName(item)
+                console.log('nameText :' , item)
+            })
+
+    }
+)();
+
+</script>
+
+</body>
+</html>
