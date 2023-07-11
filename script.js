@@ -3,17 +3,22 @@ let items = document.querySelector('.items');
 let input_category = document.querySelector('#input_category');
 let input_price = document.querySelector('#input_price');
 let ArrObj = [];
+let totalPrice = 0;
+let allprice = document.querySelector('#tot_price');
+let t_remain = document.querySelector('#t_remain');
 
-console.log('ArrObj', ArrObj)
+console.log('ArrObj999999999999999999999999', ArrObj)
 
 // Add event listener to the "Add" button
 addBtn.addEventListener('click', () => {
     ArrObj.push({ 'catVal': input_category.value, 'priceval': input_price.value, 'id': ArrObj.length, 'listValues': [] });
 
+
+
     saveCardsToLocal();
 
     renderCards(ArrObj);
-    // console.log(ArrObj);
+    console.log(ArrObj);
 
     renderExpenses(ArrObj, '');
 
@@ -47,6 +52,8 @@ function attachPlusButtonEventListeners() {
 
 // Function to render the cards
 function renderCards(arrdata) {
+    let allListPrice = 0;
+
     var htmlStr = '';
     arrdata.forEach(function (ele, ind) {
         htmlStr += `
@@ -68,14 +75,34 @@ function renderCards(arrdata) {
 
     attachPlusButtonEventListeners(); // Attach event listeners after rendering the cards
 
-}
 
+    totalPrice = 0;
+    arrdata.forEach((p) => {
+        totalPrice += Number(p.priceval)
+    })
+    allprice.innerHTML = totalPrice;
+
+    // --
+    var totalamount = document.querySelector('#tot_price');
+    arrdata.forEach((item) => {
+        item.listValues.forEach((ele) => {
+            allListPrice += Number(ele.price)
+            console.log('SSeleitemprice', allListPrice)
+            t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
+            console.log('SSfinallll', Number(totalamount.innerText) - allListPrice)
+            console.log('SSftotalammm', Number(totalamount.innerText))
+        })
+    })
+
+}
+console.log('ttpriceeeeee', totalPrice)
 
 // Function to render the expenses
 function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag) {
     let htmlStr2 = '';
     let htmlStr3 = '';
     let sum = 0;
+    let allListPrice = 0;
     expensesData.forEach((expense) => {
         htmlStr2 = '';
         if (dataSetID == '') {
@@ -101,11 +128,24 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag) {
                     sum += Number(ex.price);
                     console.log(sum);
                     htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
+
+                    console.log('abqs:', expense.priceval - sum)
+
                 });
                 expensesDiv.innerHTML = htmlStr2;
                 remainingTag.innerHTML = htmlStr3;
+
             }
             console.log('else:');
+
+            var totalamount = document.querySelector('#tot_price');
+            expense.listValues.forEach((ele) => {
+                allListPrice += Number(ele.price)
+                console.log('eleitemprice', allListPrice)
+            })
+            t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
+            console.log('finallll', Number(totalamount.innerText) - allListPrice)
+            console.log('ftotalammm', Number(totalamount.innerText))
         }
     });
 }

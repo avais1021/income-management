@@ -45,7 +45,9 @@ input::-webkit-inner-spin-button {
 }
 #input_category , #input_price{
     font-size: 17px;
-    padding: 10px 2px;
+    padding: 10px 4px;
+    border-radius: 10px;
+    border: none;
 }
 .income .items{
     display: flex;
@@ -103,6 +105,13 @@ span.itemPrice {
     margin-bottom: 5px;
     color: greenyellow;
 }
+.total{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 20px;
+}
 
 @media screen and (max-width:500.9px){
     .income__select{
@@ -110,5 +119,11 @@ span.itemPrice {
     }
     .item__cat__price {
         width: 85%;
+    }
+    .spent{
+        width: 100%;
+    }
+    .income .spendMoney{
+        width: 100%;
     }
 }
