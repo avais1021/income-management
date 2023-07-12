@@ -111,13 +111,13 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag , lis
         if (dataSetID == '') {
             expense.listValues.forEach((ex) => {
                 htmlStr2 += `
-                    <p>${ex.price}</p>
+                <p>${ex.price} <input type="text" placeholder="comment"> </p> 
                 `;
                 sum += Number(ex.price);
                 console.log(sum);
                 htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
 
-               
+
                 htmlstr4 =`Total : ${sum}`;
             });
             document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('.expenses').innerHTML = htmlStr2;
@@ -131,7 +131,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag , lis
             if (expense.id == dataSetID) {
                 expense.listValues.forEach((ex) => {
                     htmlStr2 += `
-                        <p>${ex.price}</p>
+                        <p>${ex.price} <input type="text" placeholder="comment"> </p> 
                     `;
                     sum += Number(ex.price);
                     console.log('sumListPrice',sum);
@@ -139,7 +139,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag , lis
 
                     console.log('abqs:', expense.priceval - sum)
 
-                   
+
                     htmlstr4 =`Total : ${sum}`;
 
                 });
@@ -194,4 +194,4 @@ function loadExpensesFromLocal() {
     renderCards(ArrObj);
     loadExpensesFromLocal();
     renderExpenses(ArrObj, '');
-})(); 
+})();

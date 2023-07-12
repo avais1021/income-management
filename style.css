@@ -81,8 +81,25 @@ input::-webkit-inner-spin-button {
 .expenses p{
     border-bottom-style: dashed;
     color: rgb(223, 215, 205);
-    padding: 4px;
+    padding: 4px 4px 6px 4px;
+    display: flex;
+    justify-content: space-between;
 }
+.expenses p input{
+    max-width: 140px;
+    width: 100%;
+    background: transparent;
+    padding-left: 7px;
+    color: burlywood;
+}
+.expenses p input:focus{
+    outline: none;
+}
+.expenses p input::placeholder{
+    /* color: rgb(255, 255, 0 , 0.4); */
+    color: rgb(222, 184, 135 , 0.5);
+}
+
 .spent {
     display: inline-block;
     position: relative;
