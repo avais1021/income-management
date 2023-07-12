@@ -38,12 +38,13 @@ function attachPlusButtonEventListeners() {
             let expensesDiv = parentContainer.querySelector('.expenses');
             let spentMoneyInput = parentContainer.querySelector('.spendMoney');
             let remaining = parentContainer.querySelector('#remaining');
+            let listPriceTotal = parentContainer.querySelector('#listPriceTotal');
             ArrObj.forEach((ele) => {
                 if (ele.id == e.target.dataset.cl) {
                     ele.listValues.push({ 'price': spentMoneyInput.value })
                 }
             })
-            renderExpenses(ArrObj, e.target.dataset.cl, expensesDiv, remaining);
+            renderExpenses(ArrObj, e.target.dataset.cl, expensesDiv, remaining , listPriceTotal);
             saveCardsToLocal();
             console.log('ArrObjOne :', ArrObj);
         });
@@ -67,6 +68,7 @@ function renderCards(arrdata) {
                 </div>
                 <div class="expenses">
                 </div>
+                <p id="listPriceTotal"></p>
             </div>
         `;
     });
@@ -98,9 +100,10 @@ function renderCards(arrdata) {
 console.log('ttpriceeeeee', totalPrice)
 
 // Function to render the expenses
-function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag) {
+function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag , listPriceTag) {
     let htmlStr2 = '';
     let htmlStr3 = '';
+    let htmlstr4 = '';
     let sum = 0;
     let allListPrice = 0;
     expensesData.forEach((expense) => {
@@ -113,11 +116,16 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag) {
                 sum += Number(ex.price);
                 console.log(sum);
                 htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
+
+               
+                htmlstr4 =`Total : ${sum}`;
             });
-            sum = 0;
             document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('.expenses').innerHTML = htmlStr2;
             document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('#remaining').innerHTML = htmlStr3;
+            document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('#listPriceTotal').innerHTML = htmlstr4;
             htmlStr3 = '';
+            htmlstr4 = ''
+            sum = 0;
             console.log('if:');
         } else {
             if (expense.id == dataSetID) {
@@ -126,14 +134,18 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag) {
                         <p>${ex.price}</p>
                     `;
                     sum += Number(ex.price);
-                    console.log(sum);
+                    console.log('sumListPrice',sum);
                     htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
 
                     console.log('abqs:', expense.priceval - sum)
 
+                   
+                    htmlstr4 =`Total : ${sum}`;
+
                 });
                 expensesDiv.innerHTML = htmlStr2;
                 remainingTag.innerHTML = htmlStr3;
+                listPriceTag.innerHTML = htmlstr4;
 
             }
             console.log('else:');

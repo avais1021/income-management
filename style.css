@@ -42,6 +42,7 @@ input::-webkit-inner-spin-button {
     border-top-right-radius: 5px;
     border-bottom-left-radius: 5px;
     font-weight: bold;
+    cursor: pointer;
 }
 #input_category , #input_price{
     font-size: 17px;
@@ -115,6 +116,18 @@ span.itemPrice {
     color: burlywood;
     font-weight: bold;
     box-shadow: 2px 2px 10px;
+    max-width: 370px;
+    width: 100%;
+    margin: 0 auto 20px auto;
+    padding: 0 8px;
+}
+#listPriceTotal {
+    color: white;
+    font-size: 20px;
+    margin-top: 7px;
+    letter-spacing: 0.5px;
+    font-weight: bold;
+    text-shadow: 0 0 white;
 }
 
 @media screen and (max-width:500.9px){
