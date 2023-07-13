@@ -192,4 +192,7 @@ span.itemPrice {
     .spent .row input {
         width: 205.6px;
     }
+    .total {
+        font-size: 17px;
+    }
 }
