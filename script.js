@@ -9,7 +9,12 @@ let t_remain = document.querySelector('#t_remain');
 
 console.log('ArrObj999999999999999999999999', ArrObj)
 
-// Add event listener to the "Add" button
+input_category.addEventListener('change', () => {
+    input_price.focus();
+})
+
+
+// Add event listener to the "Add" button   , 'comments': [] 
 addBtn.addEventListener('click', () => {
     ArrObj.push({ 'catVal': input_category.value, 'priceval': input_price.value, 'id': ArrObj.length, 'listValues': [] });
 
@@ -39,12 +44,60 @@ function attachPlusButtonEventListeners() {
             let spentMoneyInput = parentContainer.querySelector('.spendMoney');
             let remaining = parentContainer.querySelector('#remaining');
             let listPriceTotal = parentContainer.querySelector('#listPriceTotal');
+            let comment = parentContainer.querySelector('.comment');
+
+
+
             ArrObj.forEach((ele) => {
-                if (ele.id == e.target.dataset.cl) {
-                    ele.listValues.push({ 'price': spentMoneyInput.value })
+
+                if (ele.id == e.target.dataset.cl && spentMoneyInput.value !== '' && spentMoneyInput.type == "number" && comment.value !== '' && comment.style.color !== 'red') {
+
+                    ele.listValues.push({ 'price': spentMoneyInput.value, 'comment': comment.value })
+                    // ele.comments.push({ 'comment': comment.value })
                 }
             })
-            renderExpenses(ArrObj, e.target.dataset.cl, expensesDiv, remaining , listPriceTotal);
+
+            if (spentMoneyInput.value == '') {
+                spentMoneyInput.type = "text";
+                spentMoneyInput.value = 'empty value is not allow'
+                spentMoneyInput.style.color = 'red'
+                spentMoneyInput.style.fontSize = '14px';
+                spentMoneyInput.classList.add('errorI');
+            } else {
+                spentMoneyInput.classList.remove('errorI');
+            }
+            spentMoneyInput.addEventListener('focus', () => {
+                spentMoneyInput.type = "number";
+                spentMoneyInput.style.color = 'rgb(223, 215, 205)';
+                spentMoneyInput.style.fontSize = '16px';
+            })
+            if (comment.value == '') {
+                comment.value = 'empty value is not allow'
+                comment.style.color = 'red'
+                comment.style.fontSize = '14px';
+                comment.classList.add('errorI');
+            } else {
+                comment.classList.remove('errorI');
+            }
+            comment.addEventListener('focus', () => {
+                comment.value = '';
+                comment.style.color = 'burlywood';
+                comment.style.fontSize = '16px';
+            })
+
+
+            comment.focus();
+
+
+            !spentMoneyInput.classList.contains("errorI") ? !comment.classList.contains("errorI") ? spentMoneyInput.value = "" : "" : "";
+            !comment.classList.contains("errorI") ? !spentMoneyInput.classList.contains("errorI") ? comment.value = "" : "" : "";
+
+
+
+            renderExpenses(ArrObj, e.target.dataset.cl, expensesDiv, remaining, listPriceTotal);
+
+
+
             saveCardsToLocal();
             console.log('ArrObjOne :', ArrObj);
         });
@@ -63,7 +116,10 @@ function renderCards(arrdata) {
          
                 <p id="remaining"></p>
                 <div class="spent">
-                    <input type="number" class="spendMoney" placeholder="type your spent money">
+                    <div class="row">
+                    <input type="number" class="spendMoney"  placeholder="type your spent money"> <br>
+                    <input type="text" class="comment" placeholder="comment">
+                    </div>
                     <i class="fa-solid fa-plus spent__add" data-cl="${ele.id}"></i>
                 </div>
                 <div class="expenses">
@@ -74,6 +130,11 @@ function renderCards(arrdata) {
     });
 
     items.innerHTML = htmlStr;
+
+    if (htmlStr !== '') {
+        let spentMoneyInput = document.querySelector('.spendMoney');
+        spentMoneyInput.focus();
+    }
 
     attachPlusButtonEventListeners(); // Attach event listeners after rendering the cards
 
@@ -96,11 +157,14 @@ function renderCards(arrdata) {
         })
     })
 
+
+
 }
 console.log('ttpriceeeeee', totalPrice)
 
 // Function to render the expenses
-function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag , listPriceTag) {
+function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag) {
+   
     let htmlStr2 = '';
     let htmlStr3 = '';
     let htmlstr4 = '';
@@ -111,14 +175,14 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag , lis
         if (dataSetID == '') {
             expense.listValues.forEach((ex) => {
                 htmlStr2 += `
-                <p>${ex.price} <input type="text" placeholder="comment"> </p> 
+                <p>${ex.price} <span>${ex.comment}</span></p> 
                 `;
                 sum += Number(ex.price);
                 console.log(sum);
                 htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
 
 
-                htmlstr4 =`Total : ${sum}`;
+                htmlstr4 = `Total : ${sum}`;
             });
             document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('.expenses').innerHTML = htmlStr2;
             document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('#remaining').innerHTML = htmlStr3;
@@ -131,21 +195,26 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag , lis
             if (expense.id == dataSetID) {
                 expense.listValues.forEach((ex) => {
                     htmlStr2 += `
-                        <p>${ex.price} <input type="text" placeholder="comment"> </p> 
+                        <p>${ex.price} <span>${ex.comment}</span></p> 
                     `;
                     sum += Number(ex.price);
-                    console.log('sumListPrice',sum);
+                    console.log('sumListPrice', sum);
                     htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
 
                     console.log('abqs:', expense.priceval - sum)
 
 
-                    htmlstr4 =`Total : ${sum}`;
+                    htmlstr4 = `Total : ${sum}`;
 
                 });
                 expensesDiv.innerHTML = htmlStr2;
                 remainingTag.innerHTML = htmlStr3;
                 listPriceTag.innerHTML = htmlstr4;
+
+
+
+              
+
 
             }
             console.log('else:');
@@ -160,6 +229,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag , lis
             console.log('ftotalammm', Number(totalamount.innerText))
         }
     });
+
 }
 
 // Function to save the cards to local storage

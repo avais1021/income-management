@@ -49,6 +49,7 @@ input::-webkit-inner-spin-button {
     padding: 10px 4px;
     border-radius: 10px;
     border: none;
+    outline: none;
 }
 .income .items{
     display: flex;
@@ -59,6 +60,16 @@ input::-webkit-inner-spin-button {
 .income .spendMoney{
     font-size: 16px;
     padding: 4px;
+    background: transparent;
+    color: rgb(223, 215, 205);
+}
+.income .spendMoney:focus{
+    outline: none;
+}
+.spent .row input{
+    max-width: 205.6px;
+    width: 100%;
+    min-height: 29.6px;
 }
 .item__cat__price{
     border: 2px solid;
@@ -85,33 +96,41 @@ input::-webkit-inner-spin-button {
     display: flex;
     justify-content: space-between;
 }
-.expenses p input{
-    max-width: 140px;
+.spent .row .comment{
+    /* max-width: 140px; */
     width: 100%;
     background: transparent;
     padding-left: 7px;
     color: burlywood;
+    font-size: 16px;
+    padding: 4px;
 }
-.expenses p input:focus{
+.spent .row .comment:focus{
     outline: none;
 }
-.expenses p input::placeholder{
+.spent .row .comment::placeholder{
     /* color: rgb(255, 255, 0 , 0.4); */
     color: rgb(222, 184, 135 , 0.5);
 }
 
 .spent {
-    display: inline-block;
-    position: relative;
+    /* display: inline-block; */
+    /* position: relative; */
+    display: flex;
+    align-items: center;
+    gap: 10px;  
 }
 
 .spent i {
-    position: absolute;
+    /* position: absolute; */
     right: 3px;
     top: 6px;
     z-index: 100;
     cursor: pointer;
+    padding: 12px;
+    background: white;
     color: black;
+    border-radius: 20px;
 }
 span.itemPrice {
     border: 1px solid;
@@ -152,7 +171,7 @@ span.itemPrice {
         flex-direction: column;
     }
     .item__cat__price {
-        width: 85%;
+        width: 95%;
     }
     .spent{
         width: 100%;
@@ -162,5 +181,8 @@ span.itemPrice {
     }
     .income__select{
         margin-bottom: 30px;
+    }
+    .spent .row input {
+        width: 205.6px;
     }
 }
