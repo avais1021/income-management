@@ -147,6 +147,8 @@ function renderCards(arrdata) {
 
     // --
     var totalamount = document.querySelector('#tot_price');
+    var all_spent_m = document.querySelector('#all_spent_m');
+          
     arrdata.forEach((item) => {
         item.listValues.forEach((ele) => {
             allListPrice += Number(ele.price)
@@ -154,6 +156,7 @@ function renderCards(arrdata) {
             t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
             console.log('SSfinallll', Number(totalamount.innerText) - allListPrice)
             console.log('SSftotalammm', Number(totalamount.innerText))
+            all_spent_m.innerHTML = allListPrice;
         })
     })
 
@@ -220,6 +223,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
             console.log('else:');
 
             var totalamount = document.querySelector('#tot_price');
+            var all_spent_m = document.querySelector('#all_spent_m');
             expense.listValues.forEach((ele) => {
                 allListPrice += Number(ele.price)
                 console.log('eleitemprice', allListPrice)
@@ -227,6 +231,9 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
             t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
             console.log('finallll', Number(totalamount.innerText) - allListPrice)
             console.log('ftotalammm', Number(totalamount.innerText))
+            all_spent_m.innerHTML = allListPrice;
+
+            
         }
     });
 

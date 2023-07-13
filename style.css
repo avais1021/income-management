@@ -143,19 +143,19 @@ span.itemPrice {
     color: greenyellow;
 }
 .total{
-    display: flex;
+    /* display: flex;
     justify-content: center;
     align-items: center;
-    gap: 50px;
+    gap: 50px; */
     margin-bottom: 20px;
-    font-size: 20px;
+    font-size: 18px;
     color: burlywood;
     font-weight: bold;
-    box-shadow: 2px 2px 10px;
+    /* box-shadow: 2px 2px 10px; */
     max-width: 370px;
     width: 100%;
     margin: 0 auto 20px auto;
-    padding: 0 8px;
+    padding: 7 8px;
 }
 #listPriceTotal {
     color: white;
@@ -164,6 +164,13 @@ span.itemPrice {
     letter-spacing: 0.5px;
     font-weight: bold;
     text-shadow: 0 0 white;
+}
+.price_info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+    box-shadow: 0px 1px 5px 0px;
+    padding: 5px;
 }
 
 @media screen and (max-width:500.9px){
