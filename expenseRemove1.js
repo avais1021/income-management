@@ -202,9 +202,9 @@ function renderCards(arrdata) {
 console.log('ttpriceeeeee', totalPrice)
 
 
+// function removeExpense(expensesData){
 function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag) {
     let ex_remove = document.querySelectorAll('.ex_remove')
-    // function removeExpense(expensesData){
     // let spent__add = document.querySelectorAll('.spent__add');
 
     ex_remove.forEach((item) => {
@@ -214,9 +214,9 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
             // let plusIconData = parentExRemove.querySelector('.spent__add');
             // console.log('plusIconDataset', plusIconData.dataset.cl)
             // console.log(spent__add)
-            expensesData.forEach((ele, idx1) => {
-                
 
+            expensesData.forEach((ele, idx1) => {
+           
                 if (ele !== null) {
 
                     ele.listValues.forEach((item, index) => {
@@ -225,16 +225,15 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                                 // delete item.listValues[index]
                                 console.log('indexListVal', index)
                                 console.log('dataSetExrm', e.target.dataset.exrm)
-                                delete expensesData[idx1].listValues[index]
 
+                                delete expensesData[idx1].listValues[index]
                                 renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
                                 saveCardsToLocal();
-                               
                                 
 
+                                console.log('listValNew', item);
                                 console.log('expensesData', expensesData)
                             }
-                            console.log('listValNew', item);
                         }
                     })
                 }
@@ -267,7 +266,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                 expense.listValues.forEach((ex, idx) => {
                     if (ex !== null) {
                         htmlStr2 += `
-                                  <p>${ex.price} <span class="ex_commenet">${ex.comment} <span class="ex_remove" data-exrm="${idx}">&#10006;</span></span> </p> 
+                                  <p>${ex.price} <span>${ex.comment} <span class="ex_remove" data-exrm="${idx}">&#10006;</span></span> </p> 
                                   `;
                         sum += Number(ex.price);
                         console.log(sum);
@@ -275,23 +274,6 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
 
 
                         htmlstr4 = `Total : ${sum}`;
-
-
-                        var totalamount = document.querySelector('#tot_price');
-                        var all_spent_m = document.querySelector('#all_spent_m');
-                       
-
-                            if (ex !== null) {
-                                allListPrice += Number(ex.price)
-                                console.log('eleitemprice', allListPrice)
-                            }
-
-                       
-                        t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
-                        console.log('finallll', Number(totalamount.innerText) - allListPrice)
-                        console.log('ftotalammm', Number(totalamount.innerText))
-                        all_spent_m.innerHTML = allListPrice;
-
                     }
                 });
                 document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('.expenses').innerHTML = htmlStr2;
@@ -307,8 +289,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                     expense.listValues.forEach((ex, idx) => {
                         if (ex !== null) {
                             htmlStr2 += `
-                           
-                            <p>${ex.price} <span class="ex_commenet">${ex.comment} <span class="ex_remove" data-exrm="${idx}">&#10006;</span></span> </p>        
+                        <p>${ex.price} <span>${ex.comment} <span class="ex_remove" data-exrm="${idx}">&#10006;</span></span> </p> 
                     `;
                             sum += Number(ex.price);
                             console.log('sumListPrice', sum);
@@ -385,6 +366,5 @@ function loadExpensesFromLocal() {
     renderCards(ArrObj);
     loadExpensesFromLocal();
     loadExpensesFromLocal();
-    // renderExpenses(ArrObj, '');
     renderExpenses(ArrObj, '');
 })();

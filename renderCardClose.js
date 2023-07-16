@@ -108,7 +108,7 @@ function removeCrads(arrdata) {
 
     //    --
     let remove = document.querySelectorAll('.remove');
-
+    console.log(remove)
     arrdata.forEach((ele, index) => {
         remove.forEach((item, idx) => {
             item.addEventListener('click', (e) => {
@@ -186,70 +186,21 @@ function renderCards(arrdata) {
     arrdata.forEach((item) => {
         if (item !== null) {
             item.listValues.forEach((ele) => {
-                if (ele !== null) {
-                    allListPrice += Number(ele.price)
-                    console.log('SSeleitemprice', allListPrice)
-                    t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
-                    console.log('SSfinallll', Number(totalamount.innerText) - allListPrice)
-                    console.log('SSftotalammm', Number(totalamount.innerText))
-                    all_spent_m.innerHTML = allListPrice;
-                }
+                allListPrice += Number(ele.price)
+                console.log('SSeleitemprice', allListPrice)
+                t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
+                console.log('SSfinallll', Number(totalamount.innerText) - allListPrice)
+                console.log('SSftotalammm', Number(totalamount.innerText))
+                all_spent_m.innerHTML = allListPrice;
             })
         }
     })
 
+
+
+
 }
 console.log('ttpriceeeeee', totalPrice)
-
-
-function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag) {
-    let ex_remove = document.querySelectorAll('.ex_remove')
-    // function removeExpense(expensesData){
-    // let spent__add = document.querySelectorAll('.spent__add');
-
-    ex_remove.forEach((item) => {
-
-        item.addEventListener('click', (e) => {
-            // let parentExRemove = e.target.closest('.item__cat__price');
-            // let plusIconData = parentExRemove.querySelector('.spent__add');
-            // console.log('plusIconDataset', plusIconData.dataset.cl)
-            // console.log(spent__add)
-            expensesData.forEach((ele, idx1) => {
-                
-
-                if (ele !== null) {
-
-                    ele.listValues.forEach((item, index) => {
-                        if (item !== null) {
-                            if (ele.id == dataSetID && e.target.dataset.exrm == index) {
-                                // delete item.listValues[index]
-                                console.log('indexListVal', index)
-                                console.log('dataSetExrm', e.target.dataset.exrm)
-                                delete expensesData[idx1].listValues[index]
-
-                                renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
-                                saveCardsToLocal();
-                               
-                                
-
-                                console.log('expensesData', expensesData)
-                            }
-                            console.log('listValNew', item);
-                        }
-                    })
-                }
-
-
-            })
-
-        })
-        // console.log(ex_remove)
-
-    })
-}
-
-
-
 
 // Function to render the expenses
 function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag) {
@@ -264,35 +215,16 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
         if (expense !== null) {
             htmlStr2 = '';
             if (dataSetID == '') {
-                expense.listValues.forEach((ex, idx) => {
-                    if (ex !== null) {
-                        htmlStr2 += `
-                                  <p>${ex.price} <span class="ex_commenet">${ex.comment} <span class="ex_remove" data-exrm="${idx}">&#10006;</span></span> </p> 
-                                  `;
-                        sum += Number(ex.price);
-                        console.log(sum);
-                        htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
+                expense.listValues.forEach((ex) => {
+                    htmlStr2 += `
+                <p>${ex.price} <span>${ex.comment}</span></p> 
+                `;
+                    sum += Number(ex.price);
+                    console.log(sum);
+                    htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
 
 
-                        htmlstr4 = `Total : ${sum}`;
-
-
-                        var totalamount = document.querySelector('#tot_price');
-                        var all_spent_m = document.querySelector('#all_spent_m');
-                       
-
-                            if (ex !== null) {
-                                allListPrice += Number(ex.price)
-                                console.log('eleitemprice', allListPrice)
-                            }
-
-                       
-                        t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
-                        console.log('finallll', Number(totalamount.innerText) - allListPrice)
-                        console.log('ftotalammm', Number(totalamount.innerText))
-                        all_spent_m.innerHTML = allListPrice;
-
-                    }
+                    htmlstr4 = `Total : ${sum}`;
                 });
                 document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('.expenses').innerHTML = htmlStr2;
                 document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('#remaining').innerHTML = htmlStr3;
@@ -301,28 +233,29 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                 htmlstr4 = ''
                 sum = 0;
                 console.log('if:');
-              
             } else {
                 if (expense.id == dataSetID) {
-                    expense.listValues.forEach((ex, idx) => {
-                        if (ex !== null) {
-                            htmlStr2 += `
-                           
-                            <p>${ex.price} <span class="ex_commenet">${ex.comment} <span class="ex_remove" data-exrm="${idx}">&#10006;</span></span> </p>        
+                    expense.listValues.forEach((ex) => {
+                        htmlStr2 += `
+                        <p>${ex.price} <span>${ex.comment}</span></p> 
                     `;
-                            sum += Number(ex.price);
-                            console.log('sumListPrice', sum);
-                            htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
+                        sum += Number(ex.price);
+                        console.log('sumListPrice', sum);
+                        htmlStr3 = `<span>Remaining ${expense.priceval - sum} &#8377;</span>`;
 
-                            console.log('abqs:', expense.priceval - sum)
+                        console.log('abqs:', expense.priceval - sum)
 
 
-                            htmlstr4 = `Total : ${sum}`;
-                        }
+                        htmlstr4 = `Total : ${sum}`;
+
                     });
                     expensesDiv.innerHTML = htmlStr2;
                     remainingTag.innerHTML = htmlStr3;
                     listPriceTag.innerHTML = htmlstr4;
+
+
+
+
 
 
                 }
@@ -331,10 +264,8 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                 var totalamount = document.querySelector('#tot_price');
                 var all_spent_m = document.querySelector('#all_spent_m');
                 expense.listValues.forEach((ele) => {
-                    if (ele !== null) {
-                        allListPrice += Number(ele.price)
-                        console.log('eleitemprice', allListPrice)
-                    }
+                    allListPrice += Number(ele.price)
+                    console.log('eleitemprice', allListPrice)
                 })
                 t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
                 console.log('finallll', Number(totalamount.innerText) - allListPrice)
@@ -343,13 +274,8 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
 
 
             }
-
-            removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag);
-
         }
     });
-
-
 
 }
 
@@ -384,7 +310,5 @@ function loadExpensesFromLocal() {
     loadCardsFromLocal();
     renderCards(ArrObj);
     loadExpensesFromLocal();
-    loadExpensesFromLocal();
-    // renderExpenses(ArrObj, '');
     renderExpenses(ArrObj, '');
 })();

@@ -67,15 +67,30 @@ input::-webkit-inner-spin-button {
     outline: none;
 }
 .spent .row input{
-    max-width: 205.6px;
-    width: 100%;
+    width: 205.6px;
+    /* width: 100%; */
     min-height: 29.6px;
 }
 .item__cat__price{
+    position: relative;
     border: 2px solid;
     padding: 10px;
     padding-bottom: 16px;
     border-radius: 19px;
+}
+.remove{
+    position: absolute;
+    right: 13px;
+    top: 5px;
+    font-size: 18px;
+    color: rgb(223, 215, 205);
+}
+.ex_remove{
+    font-size: 13px;
+    margin-left: 15px;
+    position: absolute;
+    top: -4px;
+    right: 2px;
 }
 #category__price{
     font-size: 20px;
@@ -90,11 +105,18 @@ input::-webkit-inner-spin-button {
     margin-top: 5px;
 }
 .expenses p{
-    border-bottom-style: dashed;
+    /* border-bottom-style: dashed; */
+    position: relative;
+    border: 1px solid;
     color: rgb(223, 215, 205);
-    padding: 4px 4px 6px 4px;
+    padding: 8px 4px 0px 4px;
     display: flex;
     justify-content: space-between;
+}
+span.ex_commenet {
+    box-shadow: 0px -2px 2px 0px;
+    min-width: 145px;
+    margin-right: 14px;
 }
 .spent .row .comment{
     /* max-width: 140px; */

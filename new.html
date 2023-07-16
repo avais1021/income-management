@@ -15,48 +15,56 @@
     </div>
 
 <script>        
-   let btn = document.querySelector('#btn');
-   let name = document.querySelector('#name');
-   let test = document.querySelector('.test');
+//    let btn = document.querySelector('#btn');
+//    let name = document.querySelector('#name');
+//    let test = document.querySelector('.test');
 
-   const saveNames = () => {
-    const myName = document.querySelectorAll('.myName');
-    let data = [];
-    myName.forEach((item) => {
-        data.push(item.innerText)
-    })
-    console.log(data);
+//    const saveNames = () => {
+//     const myName = document.querySelectorAll('.myName');
+//     let data = [];
+//     myName.forEach((item) => {
+//         data.push(item.innerText)
+//     })
+//     console.log(data);
    
-        localStorage.setItem('namee', JSON.stringify(data))
-}
+//         localStorage.setItem('namee', JSON.stringify(data))
+// }
 
-   btn.addEventListener('click' , ()=>{
-    var nameval = name.value;
-    console.log(nameval)
-    userName(nameval );
-    saveNames();
-   }) 
+//    btn.addEventListener('click' , ()=>{
+//     var nameval = name.value;
+//     console.log(nameval)
+//     userName(nameval );
+//     saveNames();
+//    }) 
 
-   var htmlstr = '';
-   const userName = (ynm , locName='') => {
-    htmlstr += `<h1 class="myName">${ynm}${locName}</h1>`
+//    var htmlstr = '';
+//    const userName = (ynm , locName='') => {
+//     htmlstr += `<h1 class="myName">${ynm}${locName}</h1>`
    
-    test.innerHTML = htmlstr;
-   }
+//     test.innerHTML = htmlstr;
+//    }
 
 
-   (
-    function () {
-        const nameText = JSON.parse(localStorage.getItem('namee'))
-        // console.log('nameText :' , nameText)
+//    (
+//     function () {
+//         const nameText = JSON.parse(localStorage.getItem('namee'))
+//         // console.log('nameText :' , nameText)
 
-              nameText.forEach((item) => {
-                userName(item)
-                console.log('nameText :' , item)
-            })
+//               nameText.forEach((item) => {
+//                 userName(item)
+//                 console.log('nameText :' , item)
+//             })
 
-    }
-)();
+//     }
+// )();
+
+const test = [
+    {a: 'one' , list : [{q : '1' , w: '2'}]} ,
+    {b: 'two' , list : [{e : '3' , r: '4'}]},
+    {c: 'three' , list : [{t : '5' , y: '6'}]},
+    {d: 'four' , list : [{u : '7' , i: '8'}]},
+]
+console.log(test)
 
 </script>
 
