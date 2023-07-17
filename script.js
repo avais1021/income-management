@@ -51,7 +51,8 @@ function attachPlusButtonEventListeners() {
             ArrObj.forEach((ele) => {
 
                 if (ele !== null) {
-                    if (ele.id == e.target.dataset.cl && spentMoneyInput.value !== '' && spentMoneyInput.type == "number" && comment.value !== '' && comment.style.color !== 'red') {
+                    
+                    if (ele.id == e.target.dataset.cl && spentMoneyInput.value !== '' && spentMoneyInput.type == "number" && comment.value !== '' && comment.style.color !== 'red' ) {
 
                         ele.listValues.push({ 'price': spentMoneyInput.value, 'comment': comment.value })
                         // ele.comments.push({ 'comment': comment.value })
@@ -61,7 +62,7 @@ function attachPlusButtonEventListeners() {
 
             if (spentMoneyInput.value == '') {
                 spentMoneyInput.type = "text";
-                spentMoneyInput.value = 'empty value is not allow'
+                spentMoneyInput.value = 'type your spent money'
                 spentMoneyInput.style.color = 'red'
                 spentMoneyInput.style.fontSize = '14px';
                 spentMoneyInput.classList.add('errorI');
@@ -74,7 +75,7 @@ function attachPlusButtonEventListeners() {
                 spentMoneyInput.style.fontSize = '16px';
             })
             if (comment.value == '') {
-                comment.value = 'empty value is not allow'
+                comment.value = 'type your comment'
                 comment.style.color = 'red'
                 comment.style.fontSize = '14px';
                 comment.classList.add('errorI');
@@ -110,20 +111,22 @@ function removeCrads(arrdata) {
     let remove = document.querySelectorAll('.remove');
 
     arrdata.forEach((ele, index) => {
-        remove.forEach((item, idx) => {
-            item.addEventListener('click', (e) => {
+        if (ele !== null) {
+            remove.forEach((item, idx) => {
+                item.addEventListener('click', (e) => {
 
-                console.log('removeeee')
-                if (ele.id == e.target.dataset.rm) {
-                    delete ArrObj[index];
+                    console.log('removeeee')
+                    if (ele.id == e.target.dataset.rm) {
+                        delete ArrObj[index];
 
-                    renderCards(ArrObj)
-                    saveCardsToLocal();
-                    renderExpenses(ArrObj, '');
-                }
+                        renderCards(ArrObj)
+                        saveCardsToLocal();
+                        renderExpenses(ArrObj, '');
+                    }
 
+                })
             })
-        })
+        }
     })
 
 }
@@ -132,6 +135,7 @@ function removeCrads(arrdata) {
 function renderCards(arrdata) {
 
     let allListPrice = 0;
+    t_remain.innerHTML = 0;
 
     var htmlStr = '';
     arrdata.forEach(function (ele, ind) {
@@ -183,6 +187,7 @@ function renderCards(arrdata) {
     var totalamount = document.querySelector('#tot_price');
     var all_spent_m = document.querySelector('#all_spent_m');
 
+    all_spent_m.innerHTML = 0;
     arrdata.forEach((item) => {
         if (item !== null) {
             item.listValues.forEach((ele) => {
@@ -204,42 +209,38 @@ console.log('ttpriceeeeee', totalPrice)
 
 function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag) {
     let ex_remove = document.querySelectorAll('.ex_remove')
-    // function removeExpense(expensesData){
-    // let spent__add = document.querySelectorAll('.spent__add');
 
     ex_remove.forEach((item) => {
 
         item.addEventListener('click', (e) => {
-            // let parentExRemove = e.target.closest('.item__cat__price');
-            // let plusIconData = parentExRemove.querySelector('.spent__add');
-            // console.log('plusIconDataset', plusIconData.dataset.cl)
-            // console.log(spent__add)
+
             expensesData.forEach((ele, idx1) => {
-                
 
                 if (ele !== null) {
 
-                    ele.listValues.forEach((item, index) => {
-                        if (item !== null) {
-                            if (ele.id == dataSetID && e.target.dataset.exrm == index) {
-                                // delete item.listValues[index]
-                                console.log('indexListVal', index)
-                                console.log('dataSetExrm', e.target.dataset.exrm)
-                                delete expensesData[idx1].listValues[index]
+                        let parentExRemove = e.target.closest('.item__cat__price');
+                        let removeElement = parentExRemove.querySelector('.remove');
+                        console.log('removeElement', removeElement.dataset.rm)
 
-                                renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
-                                saveCardsToLocal();
-                               
-                                
+                        ele.listValues.forEach((item, index) => {
+                            if (item !== null) {
 
-                                console.log('expensesData', expensesData)
+                                if (ele.id == removeElement.dataset.rm && e.target.dataset.exrm == index) {
+                                    // delete item.listValues[index]
+                                    console.log('indexListVal', index)
+                                    console.log('dataSetExrm', e.target.dataset.exrm)
+                                    delete expensesData[idx1].listValues[index]
+
+                                    renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
+                                    saveCardsToLocal();
+
+                                    console.log('expensesData', expensesData)
+                                }
+                                console.log('listValNew', item);
+
                             }
-                            console.log('listValNew', item);
-                        }
-                    })
+                        })
                 }
-
-
             })
 
         })
@@ -250,15 +251,17 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
 
 
 
-
 // Function to render the expenses
 function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag) {
+
 
     let htmlStr2 = '';
     let htmlStr3 = '';
     let htmlstr4 = '';
     let sum = 0;
     let allListPrice = 0;
+    t_remain.innerHTML = 0;
+    all_spent_m.innerHTML = 0;
     expensesData.forEach((expense) => {
 
         if (expense !== null) {
@@ -279,14 +282,10 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
 
                         var totalamount = document.querySelector('#tot_price');
                         var all_spent_m = document.querySelector('#all_spent_m');
-                       
 
-                            if (ex !== null) {
-                                allListPrice += Number(ex.price)
-                                console.log('eleitemprice', allListPrice)
-                            }
+                        allListPrice += Number(ex.price)
+                        console.log('eleitemprice', allListPrice)
 
-                       
                         t_remain.innerHTML = Number(totalamount.innerText) - allListPrice;
                         console.log('finallll', Number(totalamount.innerText) - allListPrice)
                         console.log('ftotalammm', Number(totalamount.innerText))
@@ -301,7 +300,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                 htmlstr4 = ''
                 sum = 0;
                 console.log('if:');
-              
+
             } else {
                 if (expense.id == dataSetID) {
                     expense.listValues.forEach((ex, idx) => {
@@ -318,6 +317,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
 
 
                             htmlstr4 = `Total : ${sum}`;
+
                         }
                     });
                     expensesDiv.innerHTML = htmlStr2;
