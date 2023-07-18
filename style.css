@@ -84,6 +84,7 @@ input::-webkit-inner-spin-button {
     top: 5px;
     font-size: 18px;
     color: rgb(223, 215, 205);
+    cursor: pointer;
 }
 .ex_remove{
     font-size: 13px;
@@ -91,6 +92,7 @@ input::-webkit-inner-spin-button {
     position: absolute;
     top: -4px;
     right: 2px;
+    cursor: pointer;
 }
 #category__price{
     font-size: 20px;
@@ -111,16 +113,21 @@ input::-webkit-inner-spin-button {
     color: rgb(223, 215, 205);
     padding: 8px 4px 0px 4px;
     display: flex;
-    justify-content: space-between;
+    gap: 8px;
+}
+.ex_Prices{
+    max-width: 100px;
+    width: 100%;
 }
 span.ex_commenet {
     box-shadow: 0px -2px 2px 0px;
-    min-width: 145px;
+    max-width: 145px;
+    width: 100%;
     margin-right: 14px;
 }
 .spent .row .comment{
     /* max-width: 140px; */
-    width: 100%;
+   
     background: transparent;
     padding-left: 7px;
     color: burlywood;
@@ -193,6 +200,42 @@ span.itemPrice {
     margin-bottom: 6px;
     box-shadow: 0px 1px 5px 0px;
     padding: 5px;
+}
+.alert {
+    position: absolute;
+    width: 81%;
+    height: 65px;
+    top: 9px;
+    left: 43%;
+    transform: translate(-50%, 0);
+    margin: 0 auto;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; */
+    /* background: #171628; */
+    background: white;
+    border-radius: 20px;
+    display: none;
+}
+.alert p{
+    color: red;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.button_wrap{
+    text-align: center;
+}
+.alert button{
+    border: none;
+    font-size: 15px;
+    padding: 1px 12px;
+    border-radius: 5px;
+    /* background: grey; */
+    background: #4d4848;
+    color: white;
 }
 
 @media screen and (max-width:500.9px){

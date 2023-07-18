@@ -51,8 +51,8 @@ function attachPlusButtonEventListeners() {
             ArrObj.forEach((ele) => {
 
                 if (ele !== null) {
-                    
-                    if (ele.id == e.target.dataset.cl && spentMoneyInput.value !== '' && spentMoneyInput.type == "number" && comment.value !== '' && comment.style.color !== 'red' ) {
+
+                    if (ele.id == e.target.dataset.cl && spentMoneyInput.value !== '' && spentMoneyInput.type == "number" && comment.value !== '' && comment.style.color !== 'red') {
 
                         ele.listValues.push({ 'price': spentMoneyInput.value, 'comment': comment.value })
                         // ele.comments.push({ 'comment': comment.value })
@@ -105,27 +105,76 @@ function attachPlusButtonEventListeners() {
     });
 }
 
+// function removeCrads(arrdata) {
+
+//     //    --
+//     let remove = document.querySelectorAll('.remove');
+
+//     arrdata.forEach((ele, index) => {
+//         if (ele !== null) {
+//             remove.forEach((item, idx) => {
+//                 item.addEventListener('click', (e) => {
+
+//                     console.log('removeeee')
+//                     if (ele.id == e.target.dataset.rm) {
+//                                 delete ArrObj[index];
+
+//                                 renderCards(ArrObj)
+//                                 saveCardsToLocal();
+//                                 renderExpenses(ArrObj, '');
+//                     }
+
+//                 })
+//             })
+//         }
+//     })
+
+// }
+
 function removeCrads(arrdata) {
 
     //    --
     let remove = document.querySelectorAll('.remove');
+    let alertButtons = document.querySelectorAll('.button_wrap button');
 
     arrdata.forEach((ele, index) => {
         if (ele !== null) {
+
             remove.forEach((item, idx) => {
                 item.addEventListener('click', (e) => {
 
                     console.log('removeeee')
                     if (ele.id == e.target.dataset.rm) {
+                        e.target.closest('.item__cat__price').querySelector('.alert').style.display = 'block';
+                        // delete ArrObj[index];
+
+                        // renderCards(ArrObj)
+                        // saveCardsToLocal();
+                        // renderExpenses(ArrObj, '');
+                    }
+
+                })
+            })
+
+            alertButtons.forEach((item, idx) => {
+                item.addEventListener('click' , (e)=>{
+
+                    console.log('clickAlertbutton')
+                    if(ele.id == e.target.dataset.abtn && item.value == 'Yes' ){
                         delete ArrObj[index];
 
                         renderCards(ArrObj)
                         saveCardsToLocal();
                         renderExpenses(ArrObj, '');
+                        console.log('e.target.dataset.abtn', e.target.dataset.abtn)
+                    } else if(item.value == 'No'){
+                        e.target.closest('.item__cat__price').querySelector('.alert').style.display = 'none';
                     }
 
                 })
             })
+
+
         }
     })
 
@@ -156,6 +205,13 @@ function renderCards(arrdata) {
                 <div class="expenses">
                 </div>
                 <p id="listPriceTotal"></p>
+                <div class="alert">
+                <p>if you want to delete </p>
+                <div class="button_wrap">
+                    <button value="Yes" data-abtn="${ele.id}">Yes</button>
+                    <button value="No" data-abtn="${ele.id}">No</button>
+                </div>
+            </div>
             </div>
         `;
         }
@@ -218,28 +274,28 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
 
                 if (ele !== null) {
 
-                        let parentExRemove = e.target.closest('.item__cat__price');
-                        let removeElement = parentExRemove.querySelector('.remove');
-                        console.log('removeElement', removeElement.dataset.rm)
+                    let parentExRemove = e.target.closest('.item__cat__price');
+                    let removeElement = parentExRemove.querySelector('.remove');
+                    console.log('removeElement', removeElement.dataset.rm)
 
-                        ele.listValues.forEach((item, index) => {
-                            if (item !== null) {
+                    ele.listValues.forEach((item, index) => {
+                        if (item !== null) {
 
-                                if (ele.id == removeElement.dataset.rm && e.target.dataset.exrm == index) {
-                                    // delete item.listValues[index]
-                                    console.log('indexListVal', index)
-                                    console.log('dataSetExrm', e.target.dataset.exrm)
-                                    delete expensesData[idx1].listValues[index]
+                            if (ele.id == removeElement.dataset.rm && e.target.dataset.exrm == index) {
+                                // delete item.listValues[index]
+                                console.log('indexListVal', index)
+                                console.log('dataSetExrm', e.target.dataset.exrm)
+                                delete expensesData[idx1].listValues[index]
 
-                                    renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
-                                    saveCardsToLocal();
+                                renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
+                                saveCardsToLocal();
 
-                                    console.log('expensesData', expensesData)
-                                }
-                                console.log('listValNew', item);
-
+                                console.log('expensesData', expensesData)
                             }
-                        })
+                            console.log('listValNew', item);
+
+                        }
+                    })
                 }
             })
 
@@ -270,7 +326,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                 expense.listValues.forEach((ex, idx) => {
                     if (ex !== null) {
                         htmlStr2 += `
-                                  <p>${ex.price} <span class="ex_commenet">${ex.comment} <span class="ex_remove" data-exrm="${idx}">&#10006;</span></span> </p> 
+                                  <p><span class="ex_Prices">${ex.price}</span> <span class="ex_commenet">${ex.comment} </span> <span class="ex_remove" data-exrm="${idx}">&#10006;</span></p> 
                                   `;
                         sum += Number(ex.price);
                         console.log(sum);
@@ -307,7 +363,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                         if (ex !== null) {
                             htmlStr2 += `
                            
-                            <p>${ex.price} <span class="ex_commenet">${ex.comment} <span class="ex_remove" data-exrm="${idx}">&#10006;</span></span> </p>        
+                            <p> <span class="ex_Prices">${ex.price}</span> <span class="ex_commenet">${ex.comment} </span> <span class="ex_remove" data-exrm="${idx}">&#10006;</span></p>        
                     `;
                             sum += Number(ex.price);
                             console.log('sumListPrice', sum);
