@@ -142,7 +142,6 @@ function removeCrads(arrdata) {
 
             remove.forEach((item, idx) => {
                 item.addEventListener('click', (e) => {
-
                     console.log('removeeee')
                     if (ele.id == e.target.dataset.rm) {
                         e.target.closest('.item__cat__price').querySelector('.alert').style.display = 'block';
@@ -312,8 +311,8 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
     ex_alert_Button.forEach((item1) => {
 
         item1.addEventListener('click', (e) => {
-            console.log('item1.value',item1.value)
-            console.log('ex_alert_Button.value',ex_alert_Button.value)
+            console.log('item1.value', item1.value)
+            console.log('ex_alert_Button.value', ex_alert_Button.value)
             expensesData.forEach((ele, idx1) => {
 
                 if (ele !== null) {
@@ -324,8 +323,7 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
 
                     ele.listValues.forEach((item, index) => {
                         if (item !== null) {
-
-                            if (ele.id == removeElement.dataset.rm && e.target.dataset.exabtn == index && item1.value == 'Yes' ) {
+                            if (ele.id == removeElement.dataset.rm && e.target.dataset.exabtn == index && item1.value == 'Yes') {
                                 // delete item.listValues[index]
                                 console.log('indexListVal', index)
                                 console.log('dataSetExrm', e.target.dataset.exabtn)
@@ -337,8 +335,7 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                                 console.log('expensesData', expensesData)
                             }
                             console.log('listValNew', item);
-                        }
-                        else if (item1.value == 'No'){
+                        }else if (item1.value == 'No') {
                             e.target.closest('.parentExpense').querySelector('.ex_alert').style.display = 'none';
                         }
                     })

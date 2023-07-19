@@ -121,8 +121,8 @@ input::-webkit-inner-spin-button {
 }
 .ex_alert {
     position: absolute;
-    max-width: 220px;
-    width: 100%;
+    /* max-width: 220px; */
+    width: 89%;
     background: white;
     border-radius: 10px;
     top: -9px;
