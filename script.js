@@ -334,10 +334,12 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
 
                                 console.log('expensesData', expensesData)
                             }
+                            else if (item1.value == 'No') {
+                                e.target.closest('.parentExpense').querySelector('.ex_alert').style.display = 'none';
+                            }
                             console.log('listValNew', item);
-                        }else if (item1.value == 'No') {
-                            e.target.closest('.parentExpense').querySelector('.ex_alert').style.display = 'none';
                         }
+                        
                     })
                 }
             })
