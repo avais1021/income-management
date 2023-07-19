@@ -157,17 +157,17 @@ function removeCrads(arrdata) {
             })
 
             alertButtons.forEach((item, idx) => {
-                item.addEventListener('click' , (e)=>{
+                item.addEventListener('click', (e) => {
 
                     console.log('clickAlertbutton')
-                    if(ele.id == e.target.dataset.abtn && item.value == 'Yes' ){
+                    if (ele.id == e.target.dataset.abtn && item.value == 'Yes') {
                         delete ArrObj[index];
 
                         renderCards(ArrObj)
                         saveCardsToLocal();
                         renderExpenses(ArrObj, '');
                         console.log('e.target.dataset.abtn', e.target.dataset.abtn)
-                    } else if(item.value == 'No'){
+                    } else if (item.value == 'No') {
                         e.target.closest('.item__cat__price').querySelector('.alert').style.display = 'none';
                     }
 
@@ -206,7 +206,7 @@ function renderCards(arrdata) {
                 </div>
                 <p id="listPriceTotal"></p>
                 <div class="alert">
-                <p>if you want to delete </p>
+                <p>Are You sure to delete </p>
                 <div class="button_wrap">
                     <button value="Yes" data-abtn="${ele.id}">Yes</button>
                     <button value="No" data-abtn="${ele.id}">No</button>
@@ -265,6 +265,9 @@ console.log('ttpriceeeeee', totalPrice)
 
 function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag) {
     let ex_remove = document.querySelectorAll('.ex_remove')
+    let ex_alert_Button = document.querySelectorAll('.ex_alert button');
+    // console.log(ex_alert_Button)
+
 
     ex_remove.forEach((item) => {
 
@@ -285,10 +288,11 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                                 // delete item.listValues[index]
                                 console.log('indexListVal', index)
                                 console.log('dataSetExrm', e.target.dataset.exrm)
-                                delete expensesData[idx1].listValues[index]
+                                // delete expensesData[idx1].listValues[index]
+                                e.target.closest('.parentExpense').querySelector('.ex_alert').style.display = 'block';
 
-                                renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
-                                saveCardsToLocal();
+                                // renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
+                                // saveCardsToLocal();
 
                                 console.log('expensesData', expensesData)
                             }
@@ -303,6 +307,48 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
         // console.log(ex_remove)
 
     })
+
+    //
+    ex_alert_Button.forEach((item1) => {
+
+        item1.addEventListener('click', (e) => {
+            console.log('item1.value',item1.value)
+            console.log('ex_alert_Button.value',ex_alert_Button.value)
+            expensesData.forEach((ele, idx1) => {
+
+                if (ele !== null) {
+
+                    let parentExRemove = e.target.closest('.item__cat__price');
+                    let removeElement = parentExRemove.querySelector('.remove');
+                    console.log('removeElement', removeElement.dataset.rm)
+
+                    ele.listValues.forEach((item, index) => {
+                        if (item !== null) {
+
+                            if (ele.id == removeElement.dataset.rm && e.target.dataset.exabtn == index && item1.value == 'Yes' ) {
+                                // delete item.listValues[index]
+                                console.log('indexListVal', index)
+                                console.log('dataSetExrm', e.target.dataset.exabtn)
+                                delete expensesData[idx1].listValues[index]
+
+                                renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
+                                saveCardsToLocal();
+
+                                console.log('expensesData', expensesData)
+                            }
+                            console.log('listValNew', item);
+                        }
+                        else if (item1.value == 'No'){
+                            e.target.closest('.parentExpense').querySelector('.ex_alert').style.display = 'none';
+                        }
+                    })
+                }
+            })
+
+        })
+        // console.log(ex_remove)
+    })
+
 }
 
 
@@ -326,7 +372,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                 expense.listValues.forEach((ex, idx) => {
                     if (ex !== null) {
                         htmlStr2 += `
-                                  <p><span class="ex_Prices">${ex.price}</span> <span class="ex_commenet">${ex.comment} </span> <span class="ex_remove" data-exrm="${idx}">&#10006;</span></p> 
+                                  <p class="parentExpense"><span class="ex_Prices">${ex.price}</span> <span class="ex_commenet">${ex.comment} </span> <span class="ex_remove" data-exrm="${idx}">&#10006;</span><span class="ex_alert">Are You sure to delete <button value="Yes" data-exabtn="${idx}">Yes</button> <button value="No" data-exabtn="${idx}">No</button></span></p> 
                                   `;
                         sum += Number(ex.price);
                         console.log(sum);
@@ -363,7 +409,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                         if (ex !== null) {
                             htmlStr2 += `
                            
-                            <p> <span class="ex_Prices">${ex.price}</span> <span class="ex_commenet">${ex.comment} </span> <span class="ex_remove" data-exrm="${idx}">&#10006;</span></p>        
+                            <p class="parentExpense"> <span class="ex_Prices">${ex.price}</span> <span class="ex_commenet">${ex.comment} </span> <span class="ex_remove" data-exrm="${idx}">&#10006;</span><span class="ex_alert">Are You sure to delete <button value="Yes" data-exabtn="${idx}">Yes</button> <button value="No" data-exabtn="${idx}">No</button></span></p>        
                     `;
                             sum += Number(ex.price);
                             console.log('sumListPrice', sum);
