@@ -486,7 +486,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                 document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('#listPriceTotal').innerHTML = htmlstr4;
                 var list_total = document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('#listPriceTotal');
                 if (list_total.innerHTML !== '') {
-                    document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('.removeAllBtn_wrap').innerHTML = `<button class="removeAllBtn">remove all</button> <span class="removeall_alert">Are You sure to delete All list <button value="Yes" data-exabtn="">Yes</button> <button value="No" data-exabtn="">No</button></span> `;
+                    document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('.removeAllBtn_wrap').innerHTML = `<button class="removeAllBtn">remove all</button> <span class="removeall_alert">Are You sure to delete All list <br> <button value="Yes" data-exabtn="">Yes</button> <button value="No" data-exabtn="">No</button></span> `;
                 }
                 htmlStr3 = '';
                 htmlstr4 = ''
@@ -519,7 +519,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                     // debugger
                     
                         if (listPriceTag.innerHTML !== '') {
-                            removeAllBtn_wrap.innerHTML = `<button class="removeAllBtn">remove all</button> <span class="removeall_alert">Are You sure to delete All list <button value="Yes" data-exabtn="">Yes</button> <button value="No" data-exabtn="">No</button></span> `;
+                            removeAllBtn_wrap.innerHTML = `<button class="removeAllBtn">remove all</button> <span class="removeall_alert">Are You sure to delete All list <br> <button value="Yes" data-exabtn="">Yes</button> <button value="No" data-exabtn="">No</button></span> `;
                         }
                     
 
