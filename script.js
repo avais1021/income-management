@@ -45,6 +45,14 @@ function attachPlusButtonEventListeners() {
             let remaining = parentContainer.querySelector('#remaining');
             let listPriceTotal = parentContainer.querySelector('#listPriceTotal');
             let comment = parentContainer.querySelector('.comment');
+            let removeAllBtn_wrap = parentContainer.querySelector('.removeAllBtn_wrap');
+            // let parentExpense = parentContainer.querySelector('.parentExpense');
+
+            // if(parentExpense){
+            // removeAllBtn.style.display='block';
+            // }else if(!parentExpense){
+            //     removeAllBtn.style.display='none';
+            // }
 
 
 
@@ -95,7 +103,7 @@ function attachPlusButtonEventListeners() {
             // comment.focus();
 
 
-            renderExpenses(ArrObj, e.target.dataset.cl, expensesDiv, remaining, listPriceTotal);
+            renderExpenses(ArrObj, e.target.dataset.cl, expensesDiv, remaining, listPriceTotal, removeAllBtn_wrap);
 
 
 
@@ -203,7 +211,10 @@ function renderCards(arrdata) {
                 </div>
                 <div class="expenses">
                 </div>
+                <div class="total_wrapper">
                 <p id="listPriceTotal"></p>
+                <span class="removeAllBtn_wrap"></span>
+            </div>
                 <div class="alert">
                 <p>Are You sure to delete </p>
                 <div class="button_wrap">
@@ -262,9 +273,12 @@ function renderCards(arrdata) {
 console.log('ttpriceeeeee', totalPrice)
 
 
-function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag) {
+function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag,) {
     let ex_remove = document.querySelectorAll('.ex_remove')
     let ex_alert_Button = document.querySelectorAll('.ex_alert button');
+    let removeAllBtn = document.querySelectorAll('.removeAllBtn');
+    let removeall_alert = document.querySelectorAll('.removeall_alert button');
+
     // console.log(ex_alert_Button)
 
 
@@ -339,7 +353,81 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                             }
                             console.log('listValNew', item);
                         }
+
+                    })
+                }
+            })
+
+        })
+        // console.log(ex_remove)
+    })
+
+    //
+    removeAllBtn.forEach((item) => {
+
+        item.addEventListener('click', (e) => {
+
+            expensesData.forEach((ele, idx1) => {
+
+                if (ele !== null) {
+
+                    let parentExRemove = e.target.closest('.item__cat__price');
+                    let removeElement = parentExRemove.querySelector('.remove');
+                    console.log('removeElement', removeElement.dataset.rm)
+
+                    ele.listValues.forEach((item, index) => {
+                        if (item !== null) {
+
+                            if (ele.id == removeElement.dataset.rm ) {
+                                
                         
+                                e.target.closest('.item__cat__price').querySelector('.removeall_alert').style.display = 'block';
+
+                                console.log('expensesData', expensesData)
+                            }
+
+                        }
+                    })
+                }
+            })
+
+        })
+
+    })
+
+     //
+     removeall_alert.forEach((item1) => {
+
+        item1.addEventListener('click', (e) => {
+            console.log('item1.value', item1.value)
+            console.log('removeall_alert.value', removeall_alert.value)
+            expensesData.forEach((ele, idx1) => {
+
+                if (ele !== null) {
+
+                    let parentExRemove = e.target.closest('.item__cat__price');
+                    let removeElement = parentExRemove.querySelector('.remove');
+                    console.log('removeElement', removeElement.dataset.rm)
+
+                    ele.listValues.forEach((item, index) => {
+                        if (item !== null) {
+                            if (ele.id == removeElement.dataset.rm  && item1.value == 'Yes') {
+                                // delete item.listValues[index]
+                                console.log('indexListVal', index)
+                                // console.log('dataSetExrm', e.target.dataset.exabtn)
+                                delete expensesData[idx1].listValues[index]
+
+                                renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
+                                saveCardsToLocal();
+
+                                console.log('expensesData', expensesData)
+                            }
+                            else if (item1.value == 'No') {
+                                 e.target.closest('.item__cat__price').querySelector('.removeall_alert').style.display = 'none';
+                            }
+                            console.log('listValNew', item);
+                        }
+
                     })
                 }
             })
@@ -353,8 +441,7 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
 
 
 // Function to render the expenses
-function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag) {
-
+function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag, removeAllBtn_wrap) {
 
     let htmlStr2 = '';
     let htmlStr3 = '';
@@ -397,6 +484,10 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                 document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('.expenses').innerHTML = htmlStr2;
                 document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('#remaining').innerHTML = htmlStr3;
                 document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('#listPriceTotal').innerHTML = htmlstr4;
+                var list_total = document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('#listPriceTotal');
+                if (list_total.innerHTML !== '') {
+                    document.querySelector('[data-cl="' + expense.id + '"]').closest('.item__cat__price').querySelector('.removeAllBtn_wrap').innerHTML = `<button class="removeAllBtn">remove all</button> <span class="removeall_alert">Are You sure to delete All list <button value="Yes" data-exabtn="">Yes</button> <button value="No" data-exabtn="">No</button></span> `;
+                }
                 htmlStr3 = '';
                 htmlstr4 = ''
                 sum = 0;
@@ -416,8 +507,8 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
 
                             console.log('abqs:', expense.priceval - sum)
 
-
                             htmlstr4 = `Total : ${sum}`;
+
 
                         }
                     });
@@ -425,6 +516,12 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                     remainingTag.innerHTML = htmlStr3;
                     listPriceTag.innerHTML = htmlstr4;
 
+                    // debugger
+                    
+                        if (listPriceTag.innerHTML !== '') {
+                            removeAllBtn_wrap.innerHTML = `<button class="removeAllBtn">remove all</button> <span class="removeall_alert">Are You sure to delete All list <button value="Yes" data-exabtn="">Yes</button> <button value="No" data-exabtn="">No</button></span> `;
+                        }
+                    
 
                 }
                 console.log('else:');
@@ -489,3 +586,6 @@ function loadExpensesFromLocal() {
     // renderExpenses(ArrObj, '');
     renderExpenses(ArrObj, '');
 })();
+
+
+// document.body.classList.toggle('line')
