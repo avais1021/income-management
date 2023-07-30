@@ -375,17 +375,19 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                     let removeElement = parentExRemove.querySelector('.remove');
                     console.log('removeElement', removeElement.dataset.rm)
 
+                    ele.listValues.forEach((item, index) => {
+                        if (item !== null) {
 
+                            if (ele.id == removeElement.dataset.rm ) {
+                                
+                        
+                                e.target.closest('.item__cat__price').querySelector('.removeall_alert').style.display = 'block';
 
-                    if (ele.id == removeElement.dataset.rm) {
+                                console.log('expensesData', expensesData)
+                            }
 
-
-                        e.target.closest('.item__cat__price').querySelector('.removeall_alert').style.display = 'block';
-
-                        console.log('expensesData', expensesData)
-                    }
-
-
+                        }
+                    })
                 }
             })
 
@@ -393,29 +395,25 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
 
     })
 
-    //
-    removeall_alert.forEach((item1) => {
+     //
+     removeall_alert.forEach((item1) => {
 
         item1.addEventListener('click', (e) => {
             console.log('item1.value', item1.value)
             console.log('removeall_alert.value', removeall_alert.value)
-
             expensesData.forEach((ele, idx1) => {
-                console.log('test9 idx:', idx1)
 
                 if (ele !== null) {
 
-                    
                     let parentExRemove = e.target.closest('.item__cat__price');
                     let removeElement = parentExRemove.querySelector('.remove');
-
                     console.log('removeElement', removeElement.dataset.rm)
-                    
+
                     ele.listValues.forEach((item, index) => {
                         if (item !== null) {
-                            if (ele.id == removeElement.dataset.rm && item1.value == 'Yes') {
+                            if (ele.id == removeElement.dataset.rm  && item1.value == 'Yes') {
                                 // delete item.listValues[index]
-                                console.log('indexListValnewNew', index)
+                                console.log('indexListVal', index)
                                 // console.log('dataSetExrm', e.target.dataset.exabtn)
                                 delete expensesData[idx1].listValues[index]
 
@@ -425,7 +423,7 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                                 console.log('expensesData', expensesData)
                             }
                             else if (item1.value == 'No') {
-                                e.target.closest('.item__cat__price').querySelector('.removeall_alert').style.display = 'none';
+                                 e.target.closest('.item__cat__price').querySelector('.removeall_alert').style.display = 'none';
                             }
                             console.log('listValNew', item);
                         }
@@ -519,11 +517,11 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                     listPriceTag.innerHTML = htmlstr4;
 
                     // debugger
-
-                    if (listPriceTag.innerHTML !== '' && removeAllBtn_wrap !== undefined) {
-                        removeAllBtn_wrap.innerHTML = `<button class="removeAllBtn">remove all</button> <span class="removeall_alert">Are You sure to delete All list <br> <button value="Yes" data-exabtn="">Yes</button> <button value="No" data-exabtn="">No</button></span> `;
-                    }
-
+                    
+                        if (listPriceTag.innerHTML !== '') {
+                            removeAllBtn_wrap.innerHTML = `<button class="removeAllBtn">remove all</button> <span class="removeall_alert">Are You sure to delete All list <br> <button value="Yes" data-exabtn="">Yes</button> <button value="No" data-exabtn="">No</button></span> `;
+                        }
+                    
 
                 }
                 console.log('else:');
