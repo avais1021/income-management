@@ -24,7 +24,6 @@ addBtn.addEventListener('click', () => {
 
     renderCards(ArrObj);
     console.log(ArrObj);
-
     renderExpenses(ArrObj, '');
 
     input_category.value = '';
@@ -347,6 +346,15 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                                 saveCardsToLocal();
 
                                 console.log('expensesData', expensesData)
+
+
+                                // if (document.querySelectorAll('#listPriceTotal')[Number(removeElement.dataset.rm)].innerHTML === '') {
+                                //     console.log(e.currentTarget);
+                                //     document.querySelectorAll('.removeAllBtn')[Number(removeElement.dataset.rm)].remove();
+                                // }
+                                // var varialbleTotalListPrice = e.currentTarget;
+                                // console.log('this is currentTarget', varialbleTotalListPrice);
+
                             }
                             else if (item1.value == 'No') {
                                 e.target.closest('.parentExpense').querySelector('.ex_alert').style.display = 'none';
@@ -357,7 +365,6 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                     })
                 }
             })
-
         })
         // console.log(ex_remove)
     })
@@ -405,12 +412,12 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
 
                 if (ele !== null) {
 
-                    
+
                     let parentExRemove = e.target.closest('.item__cat__price');
                     let removeElement = parentExRemove.querySelector('.remove');
 
                     console.log('removeElement', removeElement.dataset.rm)
-                    
+
                     ele.listValues.forEach((item, index) => {
                         if (item !== null) {
                             if (ele.id == removeElement.dataset.rm && item1.value == 'Yes') {
@@ -422,7 +429,7 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                                 renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, listPriceTag)
                                 saveCardsToLocal();
 
-                                console.log('expensesData', expensesData)
+                                console.log('expensesData', expensesData)                        
                             }
                             else if (item1.value == 'No') {
                                 e.target.closest('.item__cat__price').querySelector('.removeall_alert').style.display = 'none';
@@ -433,6 +440,11 @@ function removeExpense(expensesData, dataSetID, expensesDiv, remainingTag, listP
                     })
                 }
             })
+
+            var variableRemovealert = e.target.closest('.item__cat__price').querySelector('.removeall_alert');
+            if (variableRemovealert !== null) {
+                e.target.closest('.item__cat__price').querySelector('.removeall_alert').style.display = 'none';
+            }
 
         })
         // console.log(ex_remove)
@@ -518,7 +530,7 @@ function renderExpenses(expensesData, dataSetID, expensesDiv, remainingTag, list
                     remainingTag.innerHTML = htmlStr3;
                     listPriceTag.innerHTML = htmlstr4;
 
-                    // debugger
+                    // 
 
                     if (listPriceTag.innerHTML !== '' && removeAllBtn_wrap !== undefined) {
                         removeAllBtn_wrap.innerHTML = `<button class="removeAllBtn">remove all</button> <span class="removeall_alert">Are You sure to delete All list <br> <button value="Yes" data-exabtn="">Yes</button> <button value="No" data-exabtn="">No</button></span> `;
